@@ -7,6 +7,10 @@ import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+<<<<<<< HEAD
+=======
+import FinishedScreen from "./FinishedScreen";
+>>>>>>> 2740c07 (developed more components and logics)
 
 const initialState = {
   questions: [],
@@ -16,6 +20,10 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+<<<<<<< HEAD
+=======
+  highscore: 0,
+>>>>>>> 2740c07 (developed more components and logics)
 };
 
 function reducer(state, action) {
@@ -44,15 +52,33 @@ function reducer(state, action) {
       };
     case "nextQuestion":
       return { ...state, index: state.index + 1, answer: null };
+<<<<<<< HEAD
+=======
+    case "finish":
+      return {
+        ...state,
+        status: "finished",
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
+      };
+    case "restart":
+      return { ...initialState, questions: state.questions, status: "ready" };
+
+>>>>>>> 2740c07 (developed more components and logics)
     default:
       throw new Error("unknown action");
   }
 }
 function App() {
+<<<<<<< HEAD
   const [{ status, questions, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
+=======
+  const [{ status, questions, index, answer, points, highscore }, dispatch] =
+    useReducer(reducer, initialState);
+>>>>>>> 2740c07 (developed more components and logics)
 
   const numQuestions = questions.length;
   const maxPoints = questions.reduce((prev, cur) => prev + cur.points, 0);
@@ -86,9 +112,28 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
+<<<<<<< HEAD
             <NextButton dispatch={dispatch} answer={answer} />
           </>
         )}
+=======
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              index={index}
+              numQuestions={numQuestions}
+            />
+          </>
+        )}
+        {status === "finished" && (
+          <FinishedScreen
+            points={points}
+            maxPoints={maxPoints}
+            highscore={highscore}
+            dispatch={dispatch}
+          />
+        )}
+>>>>>>> 2740c07 (developed more components and logics)
       </Main>
     </div>
   );
